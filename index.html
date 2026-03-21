@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ucapan Hari Raya INSTAQLIM - Gerbang Masjid</title>
+    
+    <!-- Memuatkan Fon -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;800&family=Great+Vibes&family=Lato:wght@300;400;700&family=Scheherazade+New:wght@400;700&display=swap" rel="stylesheet">
+
+    <style>
+        /* --- Tetapan Asas --- */
+        :root {
+            --gate-dark: #1a1a1a;
+            --gate-metal: #2c3e50;
+            --gate-gold: #D4AF37;
+            --gate-gold-light: #F4E4BC;
+            --text-white: #ffffff;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body, html {
+            height: 100%;
+            width: 100%;
+            overflow: hidden;
+            font-family: 'Lato', sans-serif;
+            background-color: #000;
+            color: var(--text-white);
+        }
+
+        /* --- 1. Latar Belakang Video & Fallback --- */
+        .media-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            min-width: 100%;
+            min-height: 100%;
+            width: auto;
+            height: auto;
+            z-index: -2;
+            object-fit: cover;
+            filter: brightness(0.5) contrast(1.1);
+        }
+
+        /* Kelas khusus untuk imej fallback */
+        .fallback-bg {
+            display: none; /* Disembunyikan secara default, akan dipaparkan oleh JS jika video gagal */
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            object-fit: cover;
+            z-index: -2;
+            filter: brightness(0.6) blur(2px);
+            transition: opacity 1s ease;
+        }
+
+        .video-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.8) 100%);
+            z-index: -1;
+        }
+
+        /* --- 2. Kandungan Kad --- */
+        .content-layer {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 5;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 20px;
+            opacity: 0;
+            transform: scale(0.9);
+            transition: opacity 1.5s ease 1.5s, transform 1.5s ease 1.5s;
+        }
+
+        .card-wrapper {
+            background: rgba(0, 0, 0, 0.65);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(212, 175, 55, 0.5);
+            border-radius: 8px;
+            padding: 3rem 2.5rem;
+            max-width: 650px;
+            width: 90%;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.7);
+            position: relative;
+        }
+        
+        .card-wrapper::before {
+            content: '';
+            position: absolute;
+            top: 8px; left: 8px; right: 8px; bottom: 8px;
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            pointer-events: none;
+        }
+
+        .logo-img {
+            width: 110px;
+            height: auto;
+            background: #fff;
+            padding: 6px;
+            border-radius: 50%;
+            margin-bottom: 2rem;
+            border: 3px solid var(--gate-gold);
+            box-shadow: 0 0 20px rgba(212, 175, 55, 0.3);
+        }
+
+        .khat-container {
+            margin-bottom: 0.5rem;
+        }
+
+        .khat-arabic {
+            font-family: 'Scheherazade New', serif;
+            font-size: 3.2rem;
+            line-height: 1.2;
+            background: linear-gradient(180deg, var(--gate-gold-light) 0%, var(--gate-gold) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.6));
+            direction: rtl;
+        }
+
+        .khat-english {
+            font-family: 'Great Vibes', cursive;
+            font-size: 2.2rem;
+            color: #fff;
+            margin-top: -15px;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.8);
+        }
+
+        h1 {
+            font-family: 'Cinzel', serif;
+            font-size: 1.8rem;
+            color: #fff;
+            margin: 1.5rem 0 0.5rem 0;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+        }
+
+        .date-badge {
+            display: inline-block;
+            background: var(--gate-gold);
+            color: #000;
+            padding: 5px 20px;
+            font-family: 'Cinzel', serif;
+            font-weight: 800;
+            font-size: 0.9rem;
+            margin: 1.5rem 0;
+            letter-spacing: 2px;
+        }
+
+        .quote-text {
+            font-style: italic;
+            color: #ddd;
+            margin-bottom: 2rem;
+            font-size: 1rem;
+            line-height: 1.6;
+        }
+
+        .quote-text span {
+            display: block;
+            margin-top: 8px;
+            color: var(--gate-gold);
+            font-weight: 700;
+            font-size: 1.1rem;
+            font-family: 'Scheherazade New', serif;
+            font-style: normal;
+        }
+
+        .action-btn {
+            background: transparent;
+            border: 1px solid var(--gate-gold);
+            color: var(--gate-gold);
+            padding: 10px 25px;
+            font-family: 'Cinzel', serif;
+            cursor: pointer;
+            transition: 0.3s;
+            text-transform: uppercase;
+            font-size: 0.8rem;
+            letter-spacing: 2px;
+        }
+        .action-btn:hover { background: var(--gate-gold); color: #000; box-shadow: 0 0 15px var(--gate-gold); }
+
+        /* --- 3. Pintu Gerbang Arch --- */
+        .gate-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 100;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            perspective: 2000px;
+            background: rgba(0,0,0,0.2);
+            transition: opacity 1s ease;
+        }
+
+        .gate-container {
+            position: relative;
+            width: 90vw;
+            height: 90vh;
+            max-width: 1000px;
+            max-height: 800px;
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: flex-end;
+        }
+
+        .gate-arch-top {
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80%;
+            height: 40%;
+            background: linear-gradient(180deg, #222 0%, #111 100%);
+            z-index: 2;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.8);
+            border-top: 15px solid transparent;
+            border-left: 15px solid transparent;
+            border-right: 15px solid transparent;
+            outline: 2px solid var(--gate-gold);
+            outline-offset: -10px;
+        }
+        
+        .gate-arch-pattern {
+            position: absolute;
+            top: 15px; left: 15px; right: 15px; bottom: 15px;
+            border-radius: 50% 50% 0 0;
+            background-image: 
+                radial-gradient(circle, var(--gate-gold) 1px, transparent 1px),
+                linear-gradient(var(--gate-gold) 1px, transparent 1px),
+                linear-gradient(90deg, var(--gate-gold) 1px, transparent 1px);
+            background-size: 40px 40px, 40px 40px, 40px 40px;
+            opacity: 0.25;
+            pointer-events: none;
+        }
+
+        .door {
+            position: relative;
+            width: 40%;
+            height: 75%;
+            background: linear-gradient(90deg, #1a1a1a, #2c3e50, #1a1a1a);
+            border: 1px solid #000;
+            transform-origin: left or right;
+            transition: transform 2.5s cubic-bezier(0.4, 0, 0.2, 1);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            backface-visibility: hidden;
+            z-index: 1;
+            box-shadow: inset 0 0 20px #000;
+        }
+
+        .door-left {
+            border-right: 2px solid var(--gate-gold);
+            transform-origin: left;
+            border-top-left-radius: 10px;
+            border-bottom-left-radius: 5px;
+        }
+
+        .door-right {
+            border-left: 2px solid var(--gate-gold);
+            transform-origin: right;
+            border-top-right-radius: 10px;
+            border-bottom-right-radius: 5px;
+        }
+
+        .door-panel {
+            width: 80%;
+            height: 70%;
+            border: 2px solid rgba(212, 175, 55, 0.3);
+            position: relative;
+        }
+        
+        .door-handle {
+            position: absolute;
+            width: 12px;
+            height: 35px;
+            background: var(--gate-gold);
+            top: 50%;
+            border-radius: 2px;
+        }
+        .door-left .door-handle { right: 15px; }
+        .door-right .door-handle { left: 15px; }
+
+        .gate-overlay.open { opacity: 0; pointer-events: none; }
+        .gate-overlay.fade-out { display: none; }
+        .gate-container.open .door-left { transform: rotateY(-120deg); }
+        .gate-container.open .door-right { transform: rotateY(120deg); }
+        .gate-container.open .gate-arch-top { opacity: 0; transition: opacity 1s ease 1s; }
+
+        .instruction {
+            position: absolute;
+            bottom: 10%;
+            left: 50%;
+            transform: translateX(-50%);
+            color: var(--gate-gold);
+            font-family: 'Cinzel', serif;
+            font-size: 1rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            animation: pulse 2s infinite;
+            text-shadow: 0 2px 5px #000;
+            z-index: 10;
+            white-space: nowrap;
+            pointer-events: none;
+        }
+
+        @keyframes pulse {
+            0% { opacity: 0.5; }
+            50% { opacity: 1; }
+            100% { opacity: 0.5; }
+        }
+
+        @media (max-width: 768px) {
+            .khat-arabic { font-size: 2.5rem; }
+            .khat-english { font-size: 2rem; }
+            .gate-container { width: 100%; height: 100%; max-height: none; }
+            .door { width: 48%; }
+            .gate-arch-top { width: 96%; }
+            .card-wrapper { padding: 2rem 1.5rem; width: 95%; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- 1. Video Latar Belakang -->
+    <!-- Poster attribute adalah imej yang akan dipaparkan jika video gagal/sebelum dimuat -->
+    <video autoplay muted loop playsinline id="bgVideo" class="media-background" poster="https://z-cdn-media.chatglm.cn/files/126641f9-282e-4422-9f24-69b91dbe9757.jpeg?auth_key=1874082143-56d77206d9fc4d7b98612d802551120f-0-75c30bfd90e52926c24cfb3bc79c00ba">
+        <source src="https://arleta.site/interactivelink/2950/Drone_approaching_Maahad.mp4" type="video/mp4">
+    </video>
+
+    <!-- 2. Fallback Imej (Disembunyikan, muncul jika JS mengesan video error) -->
+    <img src="https://z-cdn-media.chatglm.cn/files/126641f9-282e-4422-9f24-69b91dbe9757.jpeg?auth_key=1874082143-56d77206d9fc4d7b98612d802551120f-0-75c30bfd90e52926c24cfb3bc79c00ba" id="fallbackBg" class="fallback-bg" alt="Latar Belakang Malam">
+
+    <div class="video-overlay"></div>
+
+    <!-- Audio Takbir -->
+    <audio id="takbirAudio" loop>
+        <source src="https://arleta.site/interactivelink/2950/takbir-pendek.mp3" type="audio/mpeg">
+    </audio>
+
+    <!-- Kandungan Kad -->
+    <div class="content-layer" id="mainContent">
+        <div class="card-wrapper">
+            <img src="https://z-cdn-media.chatglm.cn/files/2392328d-5a83-4cb1-9427-6321b1ce23e3.jpg?auth_key=1874082143-63f109795f9a41de8b85617a82828554-0-5c9bcf18b65919d93a583170caacb5f0" alt="Logo INSTAQLIM" class="logo-img">
+            
+            <div class="khat-container">
+                <div class="khat-arabic">عيدكم مبارك</div>
+                <div class="khat-english">Eid Mubarak</div>
+            </div>
+
+            <h1>Selamat Hari Raya<br>Aidil Fitri</h1>
+            
+            <div class="date-badge">1447 H | 2026 M</div>
+            
+            <div class="quote-text">
+                "Taqabbalallahu Minna Wa Minkum"
+                <span>Mohon Maaf Zahir & Batin</span>
+            </div>
+
+            <button class="action-btn" onclick="toggleAudio()">Jeda Audio</button>
+
+            <div style="margin-top: 30px; font-size: 0.75rem; color: rgba(255,255,255,0.5); letter-spacing: 1px;">
+                Institut Tahfiz Al-Quran lil Muttaqin (INSTAQLIM)
+            </div>
+        </div>
+    </div>
+
+    <!-- Overlay Pintu Gerbang -->
+    <div class="gate-overlay" id="gateOverlay">
+        <div class="gate-container" id="gateContainer">
+            <div class="gate-arch-top">
+                <div class="gate-arch-pattern"></div>
+            </div>
+            
+            <div class="door door-left">
+                <div class="door-panel">
+                    <div class="door-handle"></div>
+                </div>
+            </div>
+            
+            <div class="door door-right">
+                <div class="door-panel">
+                    <div class="door-handle"></div>
+                </div>
+            </div>
+
+            <div class="instruction">Klik Pintu Untuk Masuk</div>
+        </div>
+    </div>
+
+    <script>
+        const gateOverlay = document.getElementById('gateOverlay');
+        const gateContainer = document.getElementById('gateContainer');
+        const mainContent = document.getElementById('mainContent');
+        const audio = document.getElementById('takbirAudio');
+        const video = document.getElementById('bgVideo');
+        const fallbackBg = document.getElementById('fallbackBg');
+
+        // 1. Cek status Video
+        video.addEventListener('error', function() {
+            console.log("Video gagal dimuatkan. Menukar kepada imej statik.");
+            video.style.display = 'none';
+            fallbackBg.style.display = 'block';
+        });
+
+        // Jika video tak main (sesetengah pelayar), cuba paksa (sambil muted)
+        video.play().catch(error => {
+            console.log("Autoplay video dicegah. Menggunakan imej statik.");
+            // Jika autoplay fail, kita biarkan poster/imej
+        });
+
+        // 2. Logik Pintu
+        gateContainer.addEventListener('click', openGate);
+
+        function openGate() {
+            if (gateContainer.classList.contains('open')) return;
+
+            gateContainer.classList.add('open');
+            gateOverlay.classList.add('open');
+
+            playAudio();
+
+            setTimeout(() => {
+                gateOverlay.classList.add('fade-out');
+                mainContent.style.opacity = '1';
+                mainContent.style.transform = 'scale(1)';
+            }, 2500);
+        }
+
+        function playAudio() {
+            audio.volume = 0.8;
+            audio.play().then(() => {
+                updateBtnText();
+            }).catch(e => console.log("Audio error:", e));
+        }
+
+        function toggleAudio() {
+            if (audio.paused) {
+                audio.play();
+            } else {
+                audio.pause();
+            }
+            updateBtnText();
+        }
+
+        function updateBtnText() {
+            const btn = document.querySelector('.action-btn');
+            if(btn) {
+                btn.innerText = audio.paused ? "Main Audio Takbir" : "Jeda Audio";
+            }
+        }
+    </script>
+</body>
+</html>
