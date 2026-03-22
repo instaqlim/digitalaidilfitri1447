@@ -425,41 +425,42 @@
     pointer-events: none;
   }
 
-  /* QURAN VERSE */
+  /* QURAN VERSE – inside flow */
   .quran-verse {
-    position: absolute;
-    left: 50%; transform: translateX(-50%);
-    bottom: calc(4vh + 280px);
-    z-index: 6;
-    text-align: center;
     width: 90%;
     max-width: 650px;
+    text-align: center;
+    margin-bottom: 0.8rem;
+    padding: 0.8rem 1.2rem;
+    border-top: 1px solid rgba(201,168,76,0.3);
+    border-bottom: 1px solid rgba(201,168,76,0.3);
     opacity: 0;
-    animation: fadeInUp 1.2s ease 2.5s forwards;
+    animation: fadeInUp 1.2s ease 0.6s forwards;
   }
 
   .verse-arabic {
     font-family: 'Scheherazade New', serif;
-    font-size: clamp(1.1rem, 3vw, 1.7rem);
+    font-size: clamp(1.2rem, 3.5vw, 2rem);
     color: var(--gold-light);
-    line-height: 1.8;
+    line-height: 2;
     text-shadow: 0 0 15px rgba(201,168,76,0.3);
+    direction: rtl;
   }
 
   .verse-trans {
     font-family: 'Amiri', serif;
-    font-size: clamp(0.72rem, 1.8vw, 0.92rem);
+    font-size: clamp(0.78rem, 1.9vw, 0.98rem);
     color: var(--text-cream);
-    opacity: 0.7;
-    margin-top: 0.4rem;
+    opacity: 0.75;
+    margin-top: 0.3rem;
     font-style: italic;
+    line-height: 1.5;
   }
 
   /* MOBILE FIXES */
   @media (max-width: 480px) {
     .side-lantern { top: auto; bottom: 55%; }
     .institute-block { padding: 0.8rem 1.2rem; }
-    .quran-verse { bottom: calc(4vh + 320px); }
   }
 </style>
 </head>
@@ -483,7 +484,7 @@
 <!-- MAIN SCENE -->
 <div id="scene">
   <video id="bg-video" autoplay muted loop playsinline>
-    <source src="/mnt/user-data/uploads/Drone_approaching_Maahad.mp4" type="video/mp4">
+    <source src="https://arleta.site/interactivelink/2950/Drone_approaching_Maahad.mp4" type="video/mp4">
   </video>
 
   <div class="overlay-grad"></div>
@@ -553,12 +554,6 @@
   <div class="ketupat-left">🔶🔷<br>🔷🔶</div>
   <div class="ketupat-right">◈</div>
 
-  <!-- QURAN VERSE -->
-  <div class="quran-verse">
-    <div class="verse-arabic">وَإِن تَعُدُّوا نِعْمَةَ اللَّهِ لَا تُحْصُوهَا</div>
-    <div class="verse-trans">"Dan jika kamu menghitung nikmat Allah, nescaya kamu tidak dapat menghitungnya." — Ibrahim: 34</div>
-  </div>
-
   <!-- PARTICLE CANVAS -->
   <canvas id="particle-canvas"></canvas>
 
@@ -567,6 +562,13 @@
 
   <!-- MAIN BOTTOM CONTENT -->
   <div class="main-content">
+
+    <!-- QURAN VERSE (in-flow, readable) -->
+    <div class="quran-verse">
+      <div class="verse-arabic">وَإِن تَعُدُّوا نِعْمَةَ ٱللَّهِ لَا تُحْصُوهَا</div>
+      <div class="verse-trans">"Dan jika kamu menghitung nikmat Allah, nescaya kamu tidak dapat menghitungnya." — Surah Ibrahim: 34</div>
+    </div>
+
     <div class="deco-line"><span>✦</span></div>
 
     <div class="greeting-arabic">عِيدٌ مُبَارَكٌ</div>
@@ -602,9 +604,9 @@
 <!-- SHARE BUTTON -->
 <button id="share-btn" style="display:none;">✦ KONGSI</button>
 
-<!-- HIDDEN AUDIO -->
+<!-- AUDIO TAKBIR -->
 <audio id="raya-audio" loop preload="auto">
-  <!-- Synthesized Eid nasheed via Web Audio API — no external file needed -->
+  <source src="https://arleta.site/interactivelink/2950/takbir-pendek.mp3" type="audio/mpeg">
 </audio>
 
 <script>
@@ -768,111 +770,19 @@ function scheduleFireworks() {
   setTimeout(scheduleFireworks, Math.random() * 2500 + 1500);
 }
 
-// ─── WEB AUDIO – NASHEED SYNTHESIZER ─────────────────────────────────────────
-let audioCtx = null;
-let masterGain = null;
+// ─── AUDIO – TAKBIR MP3 ───────────────────────────────────────────────────────
+const rayaAudio = document.getElementById('raya-audio');
 let audioPlaying = false;
-let audioNodes = [];
-
-function createRayaAudio() {
-  if (audioCtx) return;
-  audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-  masterGain = audioCtx.createGain();
-  masterGain.gain.value = 0.35;
-  masterGain.connect(audioCtx.destination);
-}
-
-function note(freq, start, dur, vol=0.5, wave='sine') {
-  const osc = audioCtx.createOscillator();
-  const gain = audioCtx.createGain();
-  osc.type = wave;
-  osc.frequency.value = freq;
-  gain.gain.setValueAtTime(0, start);
-  gain.gain.linearRampToValueAtTime(vol, start + 0.05);
-  gain.gain.setValueAtTime(vol, start + dur - 0.1);
-  gain.gain.linearRampToValueAtTime(0, start + dur);
-  osc.connect(gain);
-  gain.connect(masterGain);
-  osc.start(start);
-  osc.stop(start + dur + 0.05);
-  audioNodes.push(osc);
-}
-
-function chord(freqs, start, dur, vol=0.2) {
-  freqs.forEach(f => note(f, start, dur, vol, 'sine'));
-}
-
-// Compose a simple Eid nasheed melody (maqam Rast inspired)
-function playNasheed() {
-  if (!audioCtx) return;
-  const now = audioCtx.currentTime;
-  const tempo = 0.55; // beat duration in seconds
-  const T = t => now + t * tempo;
-
-  // Melody – Rast maqam scale: C D E♭ F G A B♭ C (adapted)
-  // Simplified ascending Eid motif
-  const scale = [261.63, 293.66, 311.13, 349.23, 392.00, 440.00, 466.16, 523.25];
-  const mel = [
-    // Phrase 1: ascending motif (takbir feel)
-    [0, scale[0], 0.8],
-    [1, scale[2], 0.6],
-    [1.6, scale[4], 0.8],
-    [2.4, scale[5], 0.6],
-    [3, scale[4], 1.2],
-    // Phrase 2
-    [4.5, scale[3], 0.6],
-    [5.1, scale[2], 0.8],
-    [6, scale[0], 0.6],
-    [6.6, scale[1], 0.8],
-    [7.4, scale[2], 1.5],
-    // Phrase 3: higher
-    [9.5, scale[4], 0.6],
-    [10.1, scale[6], 0.8],
-    [11, scale[7], 0.6],
-    [11.6, scale[6], 0.8],
-    [12.4, scale[4], 1.2],
-    // Phrase 4: resolution
-    [14, scale[3], 0.6],
-    [14.6, scale[2], 0.8],
-    [15.4, scale[1], 0.6],
-    [16, scale[0], 2.0],
-  ];
-
-  mel.forEach(([beat, freq, dur]) => {
-    note(freq, T(beat), dur * tempo, 0.3, 'triangle');
-    // Add harmonics for warmth
-    note(freq * 2, T(beat), dur * tempo * 0.7, 0.08, 'sine');
-  });
-
-  // Bass drone (tonic)
-  for (let i = 0; i < 20; i++) {
-    note(130.81, T(i), tempo * 0.9, 0.12, 'sine');
-  }
-
-  // Chord accompaniment every 2 beats
-  const baseChord = [261.63, 329.63, 392.00];
-  const ivChord = [349.23, 440.00, 523.25];
-  for (let i = 0; i < 10; i++) {
-    chord(i % 4 < 2 ? baseChord : ivChord, T(i*2), tempo * 1.8, 0.08);
-  }
-
-  // Repeat loop
-  const totalDur = 18 * tempo;
-  setTimeout(() => { if (audioPlaying) playNasheed(); }, totalDur * 1000 - 200);
-}
 
 function startAudio() {
-  createRayaAudio();
-  if (audioCtx.state === 'suspended') audioCtx.resume();
+  rayaAudio.play().catch(() => {});
   audioPlaying = true;
-  playNasheed();
   document.getElementById('audio-btn').textContent = '🔊';
 }
 
 function stopAudio() {
+  rayaAudio.pause();
   audioPlaying = false;
-  audioNodes.forEach(n => { try { n.stop(); } catch(e){} });
-  audioNodes = [];
   document.getElementById('audio-btn').textContent = '🔇';
 }
 
