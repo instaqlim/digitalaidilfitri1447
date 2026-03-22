@@ -1,399 +1,928 @@
 <!DOCTYPE html>
 <html lang="ms">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>🌙 Salam Aidilfitri 1447H • INSTAQLIM</title>
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Poppins:wght@300;500&display=swap');
-        
-        :root {
-            --gold: #f4c542;
-            --maroon: #9c2a2a;
-            --teal: #1abc9c;
-        }
-        
-        * { margin:0; padding:0; box-sizing:border-box; }
-        body {
-            font-family: 'Poppins', sans-serif;
-            background: linear-gradient(135deg, #0a1f3d 0%, #1e3a5f 100%);
-            color: #fff;
-            overflow: hidden;
-            height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            position: relative;
-        }
-        
-        /* Background stars & subtle mosque silhouette */
-        body::before {
-            content: '';
-            position: absolute;
-            top: 0; left: 0; right: 0; bottom: 0;
-            background: 
-                radial-gradient(circle at 20% 30%, rgba(255,255,255,0.15) 1px, transparent 2px) 0 0 / 60px 60px,
-                radial-gradient(circle at 70% 60%, rgba(255,255,255,0.15) 1px, transparent 2px) 0 0 / 80px 80px;
-            opacity: 0.6;
-            z-index: 0;
-            animation: twinkle 8s infinite alternate;
-        }
-        
-        .card {
-            width: 92vw;
-            max-width: 860px;
-            height: 92vh;
-            background: rgba(255,255,255,0.08);
-            backdrop-filter: blur(20px);
-            border: 4px solid var(--maroon);
-            border-radius: 24px;
-            box-shadow: 0 30px 80px rgba(0,0,0,0.6);
-            overflow: hidden;
-            position: relative;
-            z-index: 1;
-            display: flex;
-            flex-direction: column;
-        }
-        
-        .header {
-            background: linear-gradient(to right, var(--maroon), #c0392b);
-            padding: 15px 20px;
-            text-align: center;
-            position: relative;
-        }
-        
-        .header h1 {
-            font-family: 'Amiri', serif;
-            font-size: 2.1rem;
-            color: #fff;
-            text-shadow: 0 0 15px rgba(255,215,0,0.8);
-            letter-spacing: 3px;
-        }
-        
-        .content {
-            flex: 1;
-            display: flex;
-            position: relative;
-            overflow: hidden;
-        }
-        
-        /* Background image layer (ganti dengan fail anda) */
-        .bg-layer {
-            position: absolute;
-            inset: 0;
-            background: url('Salam%20Ramadan%20INSTAQLIM%201447H.png') center/cover no-repeat;
-            opacity: 0.35;
-            filter: brightness(0.9) contrast(1.1);
-            z-index: 1;
-        }
-        
-        .overlay {
-            position: absolute;
-            inset: 0;
-            background: linear-gradient(to bottom, rgba(10,31,61,0.4), rgba(10,31,61,0.85));
-            z-index: 2;
-        }
-        
-        .logo-top {
-            position: absolute;
-            top: 25px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 220px;
-            z-index: 10;
-            filter: drop-shadow(0 10px 20px rgba(255,215,0,0.6));
-            animation: float 4s ease-in-out infinite;
-        }
-        
-        .logo-bottom {
-            position: absolute;
-            bottom: 30px;
-            right: 30px;
-            width: 120px;
-            z-index: 10;
-            filter: drop-shadow(0 8px 15px #000);
-        }
-        
-        .message {
-            position: relative;
-            z-index: 5;
-            padding: 40px 30px;
-            text-align: center;
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            gap: 20px;
-        }
-        
-        .arabic {
-            font-family: 'Amiri', serif;
-            font-size: 3.2rem;
-            line-height: 1.1;
-            color: var(--gold);
-            text-shadow: 0 0 20px #f4c542;
-            animation: glow 3s infinite alternate;
-        }
-        
-        .malay {
-            font-size: 1.65rem;
-            font-weight: 500;
-            color: #e0f2fe;
-        }
-        
-        .institute {
-            font-size: 1.3rem;
-            color: #67e8f9;
-            font-weight: 300;
-            letter-spacing: 2px;
-        }
-        
-        .controls {
-            position: absolute;
-            bottom: 25px;
-            left: 50%;
-            transform: translateX(-50%);
-            z-index: 20;
-            display: flex;
-            gap: 15px;
-            background: rgba(0,0,0,0.4);
-            padding: 12px 20px;
-            border-radius: 50px;
-            backdrop-filter: blur(10px);
-        }
-        
-        button {
-            background: var(--gold);
-            color: #1e3a5f;
-            border: none;
-            padding: 12px 24px;
-            border-radius: 50px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-        
-        button:hover {
-            transform: scale(1.1);
-            box-shadow: 0 0 25px #f4c542;
-        }
-        
-        .canvas-confetti {
-            position: absolute;
-            inset: 0;
-            z-index: 3;
-            pointer-events: none;
-        }
-        
-        footer {
-            text-align: center;
-            padding: 12px;
-            font-size: 0.9rem;
-            color: #a5f3fc;
-            background: rgba(0,0,0,0.3);
-            z-index: 5;
-        }
-        
-        @keyframes float { 0%,100% { transform: translateX(-50%) translateY(0); } 50% { transform: translateX(-50%) translateY(-15px); } }
-        @keyframes glow { 0% { text-shadow: 0 0 15px #f4c542; } 100% { text-shadow: 0 0 35px #f4c542, 0 0 50px #fff; } }
-        @keyframes twinkle { 0% { opacity: 0.5; } 100% { opacity: 0.9; } }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Selamat Hari Raya – INSTAQLIM</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Cinzel:wght@400;600;700&family=Scheherazade+New:wght@400;700&display=swap');
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --gold: #C9A84C;
+    --gold-light: #F0D078;
+    --gold-glow: #FFE066;
+    --deep: #0B0F1A;
+    --deep2: #111827;
+    --emerald: #1A5C3A;
+    --emerald-light: #2E8B57;
+    --cream: #FFF8E7;
+    --ivory: #FAEBD7;
+    --text-gold: #E8C96A;
+    --text-cream: #F5E6C8;
+  }
+
+  html, body {
+    width: 100%; height: 100%;
+    overflow: hidden;
+    background: var(--deep);
+    font-family: 'Amiri', serif;
+  }
+
+  /* ── INTRO SCREEN ── */
+  #intro {
+    position: fixed; inset: 0;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    background: radial-gradient(ellipse at center, #1a2a1a 0%, #050a05 100%);
+    z-index: 100;
+    cursor: pointer;
+    transition: opacity 1.2s ease;
+  }
+  #intro.hidden { opacity: 0; pointer-events: none; }
+
+  .intro-lantern {
+    font-size: 5rem;
+    animation: sway 2s ease-in-out infinite;
+    filter: drop-shadow(0 0 20px rgba(201,168,76,0.8));
+    margin-bottom: 1.5rem;
+  }
+
+  @keyframes sway {
+    0%,100% { transform: rotate(-8deg); }
+    50% { transform: rotate(8deg); }
+  }
+
+  .intro-title {
+    font-family: 'Scheherazade New', serif;
+    font-size: clamp(1.8rem, 5vw, 3rem);
+    color: var(--gold-light);
+    text-align: center;
+    letter-spacing: 0.05em;
+    text-shadow: 0 0 30px rgba(201,168,76,0.6);
+    line-height: 1.3;
+  }
+
+  .intro-sub {
+    font-family: 'Amiri', serif;
+    font-size: clamp(0.9rem, 2.5vw, 1.2rem);
+    color: var(--text-cream);
+    margin-top: 1rem;
+    opacity: 0.8;
+    letter-spacing: 0.1em;
+  }
+
+  .intro-tap {
+    margin-top: 2.5rem;
+    padding: 0.8rem 2rem;
+    border: 1px solid var(--gold);
+    border-radius: 50px;
+    color: var(--gold);
+    font-size: 0.95rem;
+    letter-spacing: 0.15em;
+    animation: pulse-glow 1.8s ease-in-out infinite;
+    font-family: 'Cinzel', serif;
+  }
+
+  @keyframes pulse-glow {
+    0%,100% { box-shadow: 0 0 8px rgba(201,168,76,0.3); opacity: 0.8; }
+    50% { box-shadow: 0 0 25px rgba(201,168,76,0.7); opacity: 1; }
+  }
+
+  /* ── STAR FIELD ── */
+  #stars-canvas {
+    position: fixed; inset: 0;
+    z-index: 0;
+    pointer-events: none;
+  }
+
+  /* ── MAIN SCENE ── */
+  #scene {
+    position: fixed; inset: 0;
+    z-index: 1;
+    opacity: 0;
+    transition: opacity 1.5s ease;
+  }
+  #scene.visible { opacity: 1; }
+
+  /* VIDEO */
+  #bg-video {
+    position: absolute; inset: 0;
+    width: 100%; height: 100%;
+    object-fit: cover;
+    opacity: 0;
+    transition: opacity 2.5s ease;
+  }
+  #bg-video.visible { opacity: 0.55; }
+
+  /* GRADIENT OVERLAY */
+  .overlay-grad {
+    position: absolute; inset: 0;
+    background:
+      linear-gradient(to top, rgba(11,15,26,0.97) 0%, rgba(11,15,26,0.4) 40%, rgba(11,15,26,0.15) 70%, rgba(11,15,26,0.5) 100%),
+      linear-gradient(to right, rgba(11,15,26,0.4) 0%, transparent 30%, transparent 70%, rgba(11,15,26,0.4) 100%);
+    z-index: 2;
+  }
+
+  /* ARABESQUE TOP BORDER */
+  .arabesque-top {
+    position: absolute; top: 0; left: 0; right: 0;
+    height: 140px;
+    background: linear-gradient(to bottom, rgba(11,15,26,0.95) 0%, transparent 100%);
+    z-index: 3;
+    display: flex; align-items: flex-start; justify-content: center;
+    padding-top: 12px;
+    overflow: hidden;
+  }
+
+  /* SVG GEOMETRIC BORDER */
+  .border-svg {
+    width: 100%; height: 90px;
+    opacity: 0.7;
+  }
+
+  /* BISMILLAH */
+  .bismillah {
+    position: absolute; top: 55px; left: 50%; transform: translateX(-50%);
+    z-index: 10;
+    font-family: 'Scheherazade New', serif;
+    font-size: clamp(1.4rem, 4vw, 2.2rem);
+    color: var(--gold-light);
+    text-align: center;
+    white-space: nowrap;
+    letter-spacing: 0.08em;
+    text-shadow: 0 0 20px rgba(201,168,76,0.5);
+    opacity: 0;
+    animation: fadeInDown 1s ease 0.5s forwards;
+  }
+
+  @keyframes fadeInDown {
+    from { opacity: 0; transform: translateX(-50%) translateY(-20px); }
+    to { opacity: 1; transform: translateX(-50%) translateY(0); }
+  }
+
+  /* CRESCENT & STAR DECORATION */
+  .crescent-deco {
+    position: absolute; top: 18px; left: 50%; transform: translateX(-50%);
+    z-index: 9;
+    font-size: 2rem;
+    color: var(--gold);
+    filter: drop-shadow(0 0 12px rgba(201,168,76,0.6));
+    animation: fadeInDown 1s ease 0.2s forwards;
+    opacity: 0;
+  }
+
+  /* MAIN CONTENT */
+  .main-content {
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    z-index: 5;
+    display: flex; flex-direction: column;
+    align-items: center;
+    padding: 0 5% 4vh;
+    text-align: center;
+  }
+
+  /* DECORATIVE LINE */
+  .deco-line {
+    display: flex; align-items: center; gap: 12px;
+    width: 100%; max-width: 600px;
+    margin-bottom: 1.5rem;
+    opacity: 0;
+    animation: fadeInUp 1s ease 0.8s forwards;
+  }
+
+  @keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .deco-line::before, .deco-line::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(to right, transparent, var(--gold), transparent);
+  }
+
+  .deco-line span {
+    color: var(--gold);
+    font-size: 1.2rem;
+    filter: drop-shadow(0 0 8px rgba(201,168,76,0.6));
+  }
+
+  /* GREETING */
+  .greeting-arabic {
+    font-family: 'Scheherazade New', serif;
+    font-size: clamp(2rem, 7vw, 4.5rem);
+    color: var(--gold-light);
+    line-height: 1.2;
+    text-shadow:
+      0 0 40px rgba(255,224,102,0.4),
+      0 0 80px rgba(201,168,76,0.2);
+    letter-spacing: 0.02em;
+    opacity: 0;
+    animation: glowIn 1.5s ease 1s forwards;
+  }
+
+  @keyframes glowIn {
+    0% { opacity: 0; transform: scale(0.9); text-shadow: none; }
+    60% { opacity: 1; transform: scale(1.02); }
+    100% { opacity: 1; transform: scale(1);
+      text-shadow: 0 0 40px rgba(255,224,102,0.4), 0 0 80px rgba(201,168,76,0.2); }
+  }
+
+  .greeting-malay {
+    font-family: 'Cinzel', serif;
+    font-size: clamp(0.9rem, 2.8vw, 1.5rem);
+    color: var(--text-cream);
+    letter-spacing: 0.2em;
+    margin-top: 0.5rem;
+    opacity: 0;
+    animation: fadeInUp 1s ease 1.3s forwards;
+    text-transform: uppercase;
+  }
+
+  /* INSTITUTE NAME */
+  .institute-block {
+    margin-top: 1.8rem;
+    padding: 1rem 2.5rem;
+    border: 1px solid rgba(201,168,76,0.5);
+    border-radius: 4px;
+    position: relative;
+    opacity: 0;
+    animation: fadeInUp 1s ease 1.6s forwards;
+    background: rgba(11,15,26,0.4);
+    backdrop-filter: blur(8px);
+    max-width: 700px;
+    width: 100%;
+  }
+
+  .institute-block::before, .institute-block::after {
+    content: '◆';
+    position: absolute;
+    color: var(--gold);
+    font-size: 0.6rem;
+    top: 50%; transform: translateY(-50%);
+  }
+  .institute-block::before { left: -6px; }
+  .institute-block::after { right: -6px; }
+
+  .inst-name-ms {
+    font-family: 'Scheherazade New', serif;
+    font-size: clamp(1rem, 3vw, 1.8rem);
+    color: var(--gold);
+    letter-spacing: 0.05em;
+    text-shadow: 0 0 15px rgba(201,168,76,0.4);
+  }
+
+  .inst-name-short {
+    font-family: 'Cinzel', serif;
+    font-size: clamp(1.1rem, 3.5vw, 2rem);
+    color: var(--gold-light);
+    letter-spacing: 0.15em;
+    font-weight: 700;
+    margin-top: 0.2rem;
+    text-shadow: 0 0 20px rgba(255,224,102,0.5);
+  }
+
+  .inst-tagline {
+    font-family: 'Amiri', serif;
+    font-size: clamp(0.75rem, 2vw, 1rem);
+    color: var(--text-cream);
+    opacity: 0.75;
+    margin-top: 0.4rem;
+    letter-spacing: 0.08em;
+    font-style: italic;
+  }
+
+  /* MESSAGE */
+  .message-block {
+    margin-top: 1.5rem;
+    max-width: 600px;
+    opacity: 0;
+    animation: fadeInUp 1s ease 1.9s forwards;
+  }
+
+  .message-text {
+    font-family: 'Amiri', serif;
+    font-size: clamp(0.85rem, 2.2vw, 1.1rem);
+    color: var(--text-cream);
+    line-height: 1.8;
+    opacity: 0.9;
+  }
+
+  .message-maaf {
+    font-family: 'Scheherazade New', serif;
+    font-size: clamp(1rem, 2.8vw, 1.4rem);
+    color: var(--gold-light);
+    margin-top: 0.5rem;
+    letter-spacing: 0.05em;
+  }
+
+  /* BOTTOM DECO */
+  .bottom-deco {
+    display: flex; align-items: center; gap: 10px;
+    margin-top: 1.5rem;
+    opacity: 0;
+    animation: fadeInUp 1s ease 2.2s forwards;
+  }
+
+  .tahun-badge {
+    font-family: 'Cinzel', serif;
+    font-size: clamp(0.75rem, 2vw, 0.95rem);
+    color: var(--gold);
+    letter-spacing: 0.2em;
+    border: 1px solid rgba(201,168,76,0.4);
+    padding: 0.35rem 1.2rem;
+    border-radius: 50px;
+  }
+
+  /* SIDE LANTERNS */
+  .side-lantern {
+    position: absolute;
+    z-index: 6;
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    filter: drop-shadow(0 0 15px rgba(201,168,76,0.5));
+    animation: float 3s ease-in-out infinite;
+    pointer-events: none;
+  }
+  .lantern-left { left: 3%; top: 45%; animation-delay: 0s; }
+  .lantern-right { right: 3%; top: 48%; animation-delay: 1.2s; }
+
+  @keyframes float {
+    0%,100% { transform: translateY(0) rotate(-5deg); }
+    50% { transform: translateY(-15px) rotate(5deg); }
+  }
+
+  /* KETUPAT DECORATIONS */
+  .ketupat-left {
+    position: absolute; left: 2%; bottom: 35%; z-index: 6;
+    font-size: clamp(1.2rem, 3vw, 2rem);
+    opacity: 0.6;
+    animation: float 4s ease-in-out 0.5s infinite;
+    pointer-events: none;
+  }
+  .ketupat-right {
+    position: absolute; right: 2%; bottom: 40%; z-index: 6;
+    font-size: clamp(1rem, 2.5vw, 1.8rem);
+    opacity: 0.6;
+    animation: float 3.5s ease-in-out 1.5s infinite;
+    pointer-events: none;
+  }
+
+  /* PARTICLE CANVAS */
+  #particle-canvas {
+    position: absolute; inset: 0;
+    z-index: 4;
+    pointer-events: none;
+  }
+
+  /* AUDIO BUTTON */
+  #audio-btn {
+    position: fixed;
+    bottom: 2vh; right: 3%;
+    z-index: 20;
+    background: rgba(11,15,26,0.7);
+    border: 1px solid var(--gold);
+    color: var(--gold);
+    border-radius: 50%;
+    width: 48px; height: 48px;
+    font-size: 1.3rem;
+    cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    backdrop-filter: blur(8px);
+    transition: all 0.3s;
+    box-shadow: 0 0 15px rgba(201,168,76,0.3);
+  }
+  #audio-btn:hover { background: rgba(201,168,76,0.2); box-shadow: 0 0 25px rgba(201,168,76,0.5); }
+
+  /* SHARE BUTTON */
+  #share-btn {
+    position: fixed;
+    bottom: 2vh; left: 3%;
+    z-index: 20;
+    background: rgba(11,15,26,0.7);
+    border: 1px solid var(--gold);
+    color: var(--gold);
+    border-radius: 50px;
+    padding: 0.5rem 1.2rem;
+    font-size: 0.8rem;
+    cursor: pointer;
+    display: flex; align-items: center; gap: 6px;
+    backdrop-filter: blur(8px);
+    transition: all 0.3s;
+    font-family: 'Cinzel', serif;
+    letter-spacing: 0.1em;
+    box-shadow: 0 0 15px rgba(201,168,76,0.2);
+  }
+  #share-btn:hover { background: rgba(201,168,76,0.15); }
+
+  /* FIREWORKS */
+  #firework-canvas {
+    position: absolute; inset: 0;
+    z-index: 7;
+    pointer-events: none;
+  }
+
+  /* QURAN VERSE */
+  .quran-verse {
+    position: absolute;
+    left: 50%; transform: translateX(-50%);
+    bottom: calc(4vh + 280px);
+    z-index: 6;
+    text-align: center;
+    width: 90%;
+    max-width: 650px;
+    opacity: 0;
+    animation: fadeInUp 1.2s ease 2.5s forwards;
+  }
+
+  .verse-arabic {
+    font-family: 'Scheherazade New', serif;
+    font-size: clamp(1.1rem, 3vw, 1.7rem);
+    color: var(--gold-light);
+    line-height: 1.8;
+    text-shadow: 0 0 15px rgba(201,168,76,0.3);
+  }
+
+  .verse-trans {
+    font-family: 'Amiri', serif;
+    font-size: clamp(0.72rem, 1.8vw, 0.92rem);
+    color: var(--text-cream);
+    opacity: 0.7;
+    margin-top: 0.4rem;
+    font-style: italic;
+  }
+
+  /* MOBILE FIXES */
+  @media (max-width: 480px) {
+    .side-lantern { top: auto; bottom: 55%; }
+    .institute-block { padding: 0.8rem 1.2rem; }
+    .quran-verse { bottom: calc(4vh + 320px); }
+  }
+</style>
 </head>
 <body>
-    <div class="card">
-        <!-- Header -->
-        <div class="header">
-            <h1>🌙 INSTITUT TAHFIZ AL-QURAN LIL MUTTAQIN 🌙</h1>
-            <div style="font-size:0.9rem; opacity:0.9; margin-top:4px;">INSTAQLIM • 1447H | 2026M</div>
-        </div>
-        
-        <div class="content">
-            <!-- Background image -->
-            <div class="bg-layer" id="bgImage"></div>
-            <div class="overlay"></div>
-            
-            <!-- Top Logo (teardrop) -->
-            <img src="Logo 5 - Big.jpg" class="logo-top" id="logoTop" alt="Logo INSTAQLIM">
-            
-            <!-- Main Message -->
-            <div class="message">
-                <div class="arabic" id="arabicText">تقبل الله منا ومنكم</div>
-                <div class="malay">
-                    <strong>Selamat Hari Raya Aidilfitri</strong><br>
-                    Maaf Zahir & Batin<br>
-                    <span style="font-size:1.1rem; opacity:0.9;">Semoga Allah menerima ibadah puasa kita dan memberkati seluruh keluarga INSTAQLIM dengan hidayah, kesihatan & kejayaan dunia akhirat.</span>
-                </div>
-                <div class="institute">INSTITUT TAHFIZ AL-QURAN LIL MUTTAQIN (INSTAQLIM)</div>
-                
-                <!-- Quote -->
-                <div style="font-style:italic; font-size:1.05rem; margin-top:10px; opacity:0.85;">
-                    “Puasa itu adalah perisai.”<br>
-                    <small>Hadis Riwayat al-Bukhari & Muslim</small>
-                </div>
-                
-                <!-- Bottom Logo -->
-                <img src="Logo 5 - Big.jpg" class="logo-bottom" id="logoBottom" alt="Logo INSTAQLIM">
-            </div>
-            
-            <!-- Canvas for confetti & particles -->
-            <canvas id="confetti" class="canvas-confetti"></canvas>
-        </div>
-        
-        <!-- Controls -->
-        <div class="controls">
-            <button onclick="toggleAudio()">🎵 Putar Takbir Aidilfitri</button>
-            <button onclick="launchConfetti()">🎉 Konfeti</button>
-            <button onclick="toggleFullscreen()">🔲 Skrin Penuh</button>
-            <button onclick="shareCard()">📲 Kongsi Kad</button>
-        </div>
-        
-        <footer>
-            Dibina dengan ❤️ untuk INSTAQLIM • Salin kod ini ke fail .html & letakkan dua imej dalam folder yang sama
-            <br>
-            <small>Immersive • Minimalis • Audio • Animasi • 2026</small>
-        </footer>
+
+<!-- INTRO / SPLASH -->
+<div id="intro">
+  <div class="intro-lantern">🪔</div>
+  <div class="intro-title">
+    بِسْمِ اللهِ الرَّحْمٰنِ الرَّحِيْمِ
+    <br>
+    <span style="font-family:'Cinzel',serif;font-size:0.45em;letter-spacing:0.2em;color:#F0D078;">SELAMAT HARI RAYA</span>
+  </div>
+  <div class="intro-sub">INSTAQLIM &nbsp;·&nbsp; 1446H</div>
+  <div class="intro-tap">✦ &nbsp;KETUK UNTUK MASUK&nbsp; ✦</div>
+</div>
+
+<!-- STAR BG -->
+<canvas id="stars-canvas"></canvas>
+
+<!-- MAIN SCENE -->
+<div id="scene">
+  <video id="bg-video" autoplay muted loop playsinline>
+    <source src="/mnt/user-data/uploads/Drone_approaching_Maahad.mp4" type="video/mp4">
+  </video>
+
+  <div class="overlay-grad"></div>
+
+  <!-- TOP ARABESQUE -->
+  <div class="arabesque-top">
+    <svg class="border-svg" viewBox="0 0 1200 90" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <linearGradient id="goldGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+          <stop offset="0%" style="stop-color:rgba(201,168,76,0)"/>
+          <stop offset="20%" style="stop-color:rgba(201,168,76,0.8)"/>
+          <stop offset="50%" style="stop-color:rgba(240,208,120,1)"/>
+          <stop offset="80%" style="stop-color:rgba(201,168,76,0.8)"/>
+          <stop offset="100%" style="stop-color:rgba(201,168,76,0)"/>
+        </linearGradient>
+      </defs>
+      <!-- horizontal baseline -->
+      <line x1="0" y1="70" x2="1200" y2="70" stroke="url(#goldGrad)" stroke-width="0.8"/>
+      <!-- repeating arch pattern -->
+      <g fill="none" stroke="url(#goldGrad)" stroke-width="0.7" opacity="0.9">
+        <!-- 8-pointed star center -->
+        <path d="M600,15 L612,40 L638,40 L617,56 L625,82 L600,67 L575,82 L583,56 L562,40 L588,40 Z" fill="rgba(201,168,76,0.15)" stroke="rgba(201,168,76,0.7)" stroke-width="0.5"/>
+        <!-- arches -->
+        <path d="M100,70 Q150,20 200,70"/>
+        <path d="M200,70 Q250,20 300,70"/>
+        <path d="M300,70 Q350,20 400,70"/>
+        <path d="M400,70 Q450,30 500,70"/>
+        <path d="M500,70 Q550,5 600,70"/>
+        <path d="M600,70 Q650,5 700,70"/>
+        <path d="M700,70 Q750,30 800,70"/>
+        <path d="M800,70 Q850,20 900,70"/>
+        <path d="M900,70 Q950,20 1000,70"/>
+        <path d="M1000,70 Q1050,20 1100,70"/>
+        <!-- inner smaller arches -->
+        <path d="M150,70 Q175,45 200,70" stroke-width="0.4" opacity="0.5"/>
+        <path d="M250,70 Q275,45 300,70" stroke-width="0.4" opacity="0.5"/>
+        <path d="M350,70 Q375,45 400,70" stroke-width="0.4" opacity="0.5"/>
+        <path d="M450,70 Q475,48 500,70" stroke-width="0.4" opacity="0.5"/>
+        <path d="M700,70 Q725,48 750,70" stroke-width="0.4" opacity="0.5"/>
+        <path d="M800,70 Q825,45 850,70" stroke-width="0.4" opacity="0.5"/>
+        <path d="M900,70 Q925,45 950,70" stroke-width="0.4" opacity="0.5"/>
+        <path d="M1000,70 Q1025,45 1050,70" stroke-width="0.4" opacity="0.5"/>
+        <!-- dots at peaks -->
+        <circle cx="150" cy="20" r="2" fill="rgba(201,168,76,0.6)" stroke="none"/>
+        <circle cx="250" cy="20" r="2" fill="rgba(201,168,76,0.6)" stroke="none"/>
+        <circle cx="350" cy="20" r="2" fill="rgba(201,168,76,0.6)" stroke="none"/>
+        <circle cx="450" cy="30" r="2" fill="rgba(201,168,76,0.6)" stroke="none"/>
+        <circle cx="550" cy="5" r="3" fill="rgba(240,208,120,0.9)" stroke="none"/>
+        <circle cx="650" cy="5" r="3" fill="rgba(240,208,120,0.9)" stroke="none"/>
+        <circle cx="750" cy="30" r="2" fill="rgba(201,168,76,0.6)" stroke="none"/>
+        <circle cx="850" cy="20" r="2" fill="rgba(201,168,76,0.6)" stroke="none"/>
+        <circle cx="950" cy="20" r="2" fill="rgba(201,168,76,0.6)" stroke="none"/>
+        <circle cx="1050" cy="20" r="2" fill="rgba(201,168,76,0.6)" stroke="none"/>
+      </g>
+    </svg>
+  </div>
+
+  <!-- CRESCENT DECO -->
+  <div class="crescent-deco">☪</div>
+
+  <!-- BISMILLAH -->
+  <div class="bismillah">بِسْمِ اللهِ الرَّحْمٰنِ الرَّحِيْمِ</div>
+
+  <!-- SIDE DECORATIONS -->
+  <div class="side-lantern lantern-left">🏮</div>
+  <div class="side-lantern lantern-right">🏮</div>
+  <div class="ketupat-left">🔶🔷<br>🔷🔶</div>
+  <div class="ketupat-right">◈</div>
+
+  <!-- QURAN VERSE -->
+  <div class="quran-verse">
+    <div class="verse-arabic">وَإِن تَعُدُّوا نِعْمَةَ اللَّهِ لَا تُحْصُوهَا</div>
+    <div class="verse-trans">"Dan jika kamu menghitung nikmat Allah, nescaya kamu tidak dapat menghitungnya." — Ibrahim: 34</div>
+  </div>
+
+  <!-- PARTICLE CANVAS -->
+  <canvas id="particle-canvas"></canvas>
+
+  <!-- FIREWORK CANVAS -->
+  <canvas id="firework-canvas"></canvas>
+
+  <!-- MAIN BOTTOM CONTENT -->
+  <div class="main-content">
+    <div class="deco-line"><span>✦</span></div>
+
+    <div class="greeting-arabic">عِيدٌ مُبَارَكٌ</div>
+    <div class="greeting-malay">Selamat Hari Raya Aidilfitri</div>
+
+    <div class="institute-block">
+      <div class="inst-name-ms">Institut Tahfiz Al-Quran Lil Muttaqin</div>
+      <div class="inst-name-short">INSTAQLIM</div>
+      <div class="inst-tagline">Melahirkan Generasi Huffaz Berakhlak Mulia</div>
     </div>
-    
-    <!-- Audio element -->
-    <audio id="eidAudio" loop>
-        <!-- Ganti src dengan fail MP3 takbir / nasyid Aidilfitri percuma (contoh: https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3 atau upload sendiri ke hosting) -->
-        <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3" type="audio/mpeg">
-    </audio>
-    
-    <script>
-        // Confetti
-        const canvas = document.getElementById('confetti');
-        const ctx = canvas.getContext('2d');
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
-        
-        let particles = [];
-        class Particle {
-            constructor() {
-                this.x = Math.random() * canvas.width;
-                this.y = Math.random() * canvas.height - canvas.height;
-                this.size = Math.random() * 12 + 6;
-                this.speed = Math.random() * 3 + 2;
-                this.angle = Math.random() * 360;
-                this.color = ['#f4c542', '#e74c3c', '#1abc9c', '#3498db'][Math.floor(Math.random()*4)];
-            }
-            update() {
-                this.y += this.speed;
-                this.angle += 5;
-                if (this.y > canvas.height) this.y = -10;
-            }
-            draw() {
-                ctx.save();
-                ctx.translate(this.x, this.y);
-                ctx.rotate(this.angle * Math.PI / 180);
-                ctx.fillStyle = this.color;
-                ctx.fillRect(-this.size/2, -this.size/2, this.size, this.size * 1.6);
-                ctx.restore();
-            }
-        }
-        
-        function launchConfetti() {
-            for (let i = 0; i < 80; i++) particles.push(new Particle());
-            setTimeout(() => particles = [], 4500);
-        }
-        
-        function animateConfetti() {
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-            for (let i = 0; i < particles.length; i++) {
-                particles[i].update();
-                particles[i].draw();
-            }
-            requestAnimationFrame(animateConfetti);
-        }
-        
-        // Audio
-        let audio = document.getElementById('eidAudio');
-        let isPlaying = false;
-        function toggleAudio() {
-            if (isPlaying) {
-                audio.pause();
-                isPlaying = false;
-            } else {
-                audio.play().catch(() => alert('Gunakan fail MP3 takbir sendiri atau link percuma'));
-                isPlaying = true;
-            }
-        }
-        
-        // Fullscreen
-        function toggleFullscreen() {
-            if (!document.fullscreenElement) document.documentElement.requestFullscreen();
-            else document.exitFullscreen();
-        }
-        
-        // Share (simulasi)
-        function shareCard() {
-            alert("📱 Kad telah disalin ke clipboard! (Dalam aplikasi sebenar: navigator.share()) 🌟\nKongsi ke WhatsApp / IG Stories sekarang!");
-            // Boleh tambah navigator.clipboard.writeText(window.location.href);
-        }
-        
-        // Floating animation & glow
-        function animateElements() {
-            const arabic = document.getElementById('arabicText');
-            arabic.style.animation = 'glow 2.5s infinite alternate';
-            
-            // Mouse parallax on logos
-            document.addEventListener('mousemove', e => {
-                const x = (e.clientX / window.innerWidth) * 15 - 7.5;
-                const y = (e.clientY / window.innerHeight) * 12 - 6;
-                document.getElementById('logoTop').style.transform = `translateX(-50%) translate(${x}px, ${y}px)`;
-            });
-        }
-        
-        // Keyboard & touch immersive
-        window.addEventListener('keydown', e => {
-            if (e.key === "c" || e.key === "C") launchConfetti();
-            if (e.key === "m" || e.key === "M") toggleAudio();
-        });
-        
-        // On load
-        window.onload = () => {
-            // Ganti teks ke Aidilfitri sepenuhnya
-            document.getElementById('arabicText').innerHTML = `تقبل الله منا ومنكم<br>سلمت عيد الفطر`;
-            
-            animateElements();
-            animateConfetti();
-            launchConfetti(); // auto confetti pertama
-            
-            // Auto play hint
-            setTimeout(() => {
-                const hint = document.createElement('div');
-                hint.style.position = 'fixed';
-                hint.style.bottom = '80px';
-                hint.style.left = '50%';
-                hint.style.transform = 'translateX(-50%)';
-                hint.style.background = 'rgba(0,0,0,0.7)';
-                hint.style.padding = '8px 18px';
-                hint.style.borderRadius = '30px';
-                hint.style.fontSize = '0.9rem';
-                hint.style.zIndex = '100';
-                hint.innerHTML = '👆 Tekan butang 🎵 untuk dengar Takbir • Tekan C untuk konfeti';
-                document.body.appendChild(hint);
-                setTimeout(() => hint.remove(), 5000);
-            }, 1200);
-            
-            // Responsive resize
-            window.addEventListener('resize', () => {
-                canvas.width = window.innerWidth;
-                canvas.height = window.innerHeight;
-            });
-            
-            console.log('%cKad Digital INSTAQLIM siap! ✨ Copy-paste & ganti dua imej sahaja', 'color:#f4c542; font-size:18px');
-        };
-        
-        // Extra immersive: klik mana-mana pada kad untuk konfeti kecil
-        document.querySelector('.card').addEventListener('click', (e) => {
-            if (e.target.tagName !== 'BUTTON') {
-                for (let i = 0; i < 30; i++) particles.push(new Particle());
-            }
-        });
-    </script>
+
+    <div class="message-block">
+      <div class="message-text">
+        Pimpinan dan warga INSTAQLIM dengan penuh rendah hati<br>memohon maaf zahir dan batin.
+      </div>
+      <div class="message-maaf">كُلُّ عَامٍ وَأَنْتُمْ بِخَيْرٍ</div>
+      <div class="message-text" style="margin-top:0.3rem;font-size:0.85em;opacity:0.75;">
+        Semoga Allah menerima segala amal ibadah kita.
+      </div>
+    </div>
+
+    <div class="bottom-deco">
+      <span style="color:var(--gold);font-size:0.8rem;">✦</span>
+      <div class="tahun-badge">1446 HIJRAH</div>
+      <span style="color:var(--gold);font-size:0.8rem;">✦</span>
+    </div>
+  </div>
+</div>
+
+<!-- AUDIO BUTTON -->
+<button id="audio-btn" title="Togol Audio" style="display:none;">🔇</button>
+
+<!-- SHARE BUTTON -->
+<button id="share-btn" style="display:none;">✦ KONGSI</button>
+
+<!-- HIDDEN AUDIO -->
+<audio id="raya-audio" loop preload="auto">
+  <!-- Synthesized Eid nasheed via Web Audio API — no external file needed -->
+</audio>
+
+<script>
+// ─── STARS ───────────────────────────────────────────────────────────────────
+const starsCanvas = document.getElementById('stars-canvas');
+const sCtx = starsCanvas.getContext('2d');
+let stars = [];
+
+function resizeStars() {
+  starsCanvas.width = window.innerWidth;
+  starsCanvas.height = window.innerHeight;
+  stars = Array.from({length:180}, () => ({
+    x: Math.random() * starsCanvas.width,
+    y: Math.random() * starsCanvas.height,
+    r: Math.random() * 1.5 + 0.3,
+    o: Math.random(),
+    speed: Math.random() * 0.008 + 0.003
+  }));
+}
+resizeStars();
+window.addEventListener('resize', resizeStars);
+
+function animateStars(t) {
+  sCtx.clearRect(0, 0, starsCanvas.width, starsCanvas.height);
+  stars.forEach(s => {
+    s.o = 0.3 + 0.7 * (0.5 + 0.5 * Math.sin(t * s.speed * 60));
+    sCtx.beginPath();
+    sCtx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
+    sCtx.fillStyle = `rgba(255, 240, 180, ${s.o})`;
+    sCtx.fill();
+  });
+  requestAnimationFrame(animateStars);
+}
+requestAnimationFrame(animateStars);
+
+// ─── PARTICLES ───────────────────────────────────────────────────────────────
+const pCanvas = document.getElementById('particle-canvas');
+const pCtx = pCanvas.getContext('2d');
+let particles = [];
+
+function resizeParticles() {
+  pCanvas.width = window.innerWidth;
+  pCanvas.height = window.innerHeight;
+}
+resizeParticles();
+window.addEventListener('resize', resizeParticles);
+
+function spawnParticle() {
+  particles.push({
+    x: Math.random() * pCanvas.width,
+    y: pCanvas.height + 10,
+    vx: (Math.random() - 0.5) * 0.8,
+    vy: -(Math.random() * 1.5 + 0.5),
+    r: Math.random() * 3 + 1,
+    life: 1,
+    decay: Math.random() * 0.004 + 0.002,
+    type: Math.random() > 0.5 ? 'circle' : 'star',
+    color: Math.random() > 0.5 ? '#C9A84C' : '#F0D078'
+  });
+}
+
+function drawStar(ctx, x, y, r) {
+  ctx.beginPath();
+  for (let i = 0; i < 5; i++) {
+    const a = (i * 4 * Math.PI / 5) - Math.PI / 2;
+    const a2 = ((i * 4 + 2) * Math.PI / 5) - Math.PI / 2;
+    const fx = x + r * Math.cos(a), fy = y + r * Math.sin(a);
+    const ix = x + r * 0.4 * Math.cos(a2), iy = y + r * 0.4 * Math.sin(a2);
+    i === 0 ? ctx.moveTo(fx, fy) : ctx.lineTo(fx, fy);
+    ctx.lineTo(ix, iy);
+  }
+  ctx.closePath();
+}
+
+let lastSpawn = 0;
+function animateParticles(t) {
+  pCtx.clearRect(0, 0, pCanvas.width, pCanvas.height);
+  if (t - lastSpawn > 120) { spawnParticle(); lastSpawn = t; }
+  particles = particles.filter(p => p.life > 0);
+  particles.forEach(p => {
+    p.x += p.vx; p.y += p.vy; p.life -= p.decay;
+    pCtx.globalAlpha = p.life;
+    pCtx.fillStyle = p.color;
+    if (p.type === 'circle') {
+      pCtx.beginPath();
+      pCtx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+      pCtx.fill();
+    } else {
+      drawStar(pCtx, p.x, p.y, p.r);
+      pCtx.fill();
+    }
+  });
+  pCtx.globalAlpha = 1;
+  requestAnimationFrame(animateParticles);
+}
+requestAnimationFrame(animateParticles);
+
+// ─── FIREWORKS ────────────────────────────────────────────────────────────────
+const fCanvas = document.getElementById('firework-canvas');
+const fCtx = fCanvas.getContext('2d');
+let fireworks = [];
+let fwActive = false;
+
+function resireFireworks() {
+  fCanvas.width = window.innerWidth;
+  fCanvas.height = window.innerHeight;
+}
+resireFireworks();
+window.addEventListener('resize', resireFireworks);
+
+function burst(x, y) {
+  const colors = ['#C9A84C','#F0D078','#FFE066','#E8C96A','#FAEBD7','#fff8e7'];
+  for (let i = 0; i < 40; i++) {
+    const angle = (i / 40) * Math.PI * 2;
+    const speed = Math.random() * 3 + 1.5;
+    fireworks.push({
+      x, y,
+      vx: Math.cos(angle) * speed,
+      vy: Math.sin(angle) * speed,
+      life: 1,
+      decay: Math.random() * 0.015 + 0.008,
+      r: Math.random() * 3 + 1,
+      color: colors[Math.floor(Math.random() * colors.length)],
+      trail: []
+    });
+  }
+}
+
+function animateFireworks(t) {
+  fCtx.clearRect(0, 0, fCanvas.width, fCanvas.height);
+  fireworks = fireworks.filter(f => f.life > 0);
+  fireworks.forEach(f => {
+    f.trail.push({x: f.x, y: f.y, life: f.life});
+    if (f.trail.length > 6) f.trail.shift();
+    f.trail.forEach((pt, i) => {
+      fCtx.globalAlpha = (i / f.trail.length) * f.life * 0.4;
+      fCtx.fillStyle = f.color;
+      fCtx.beginPath();
+      fCtx.arc(pt.x, pt.y, f.r * 0.5, 0, Math.PI * 2);
+      fCtx.fill();
+    });
+    fCtx.globalAlpha = f.life;
+    fCtx.fillStyle = f.color;
+    fCtx.beginPath();
+    fCtx.arc(f.x, f.y, f.r, 0, Math.PI * 2);
+    fCtx.fill();
+    f.x += f.vx; f.y += f.vy; f.vy += 0.05;
+    f.vx *= 0.98; f.vy *= 0.98;
+    f.life -= f.decay;
+  });
+  fCtx.globalAlpha = 1;
+  requestAnimationFrame(animateFireworks);
+}
+requestAnimationFrame(animateFireworks);
+
+function scheduleFireworks() {
+  if (!fwActive) return;
+  const x = Math.random() * fCanvas.width * 0.8 + fCanvas.width * 0.1;
+  const y = Math.random() * fCanvas.height * 0.5 + fCanvas.height * 0.05;
+  burst(x, y);
+  setTimeout(scheduleFireworks, Math.random() * 2500 + 1500);
+}
+
+// ─── WEB AUDIO – NASHEED SYNTHESIZER ─────────────────────────────────────────
+let audioCtx = null;
+let masterGain = null;
+let audioPlaying = false;
+let audioNodes = [];
+
+function createRayaAudio() {
+  if (audioCtx) return;
+  audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+  masterGain = audioCtx.createGain();
+  masterGain.gain.value = 0.35;
+  masterGain.connect(audioCtx.destination);
+}
+
+function note(freq, start, dur, vol=0.5, wave='sine') {
+  const osc = audioCtx.createOscillator();
+  const gain = audioCtx.createGain();
+  osc.type = wave;
+  osc.frequency.value = freq;
+  gain.gain.setValueAtTime(0, start);
+  gain.gain.linearRampToValueAtTime(vol, start + 0.05);
+  gain.gain.setValueAtTime(vol, start + dur - 0.1);
+  gain.gain.linearRampToValueAtTime(0, start + dur);
+  osc.connect(gain);
+  gain.connect(masterGain);
+  osc.start(start);
+  osc.stop(start + dur + 0.05);
+  audioNodes.push(osc);
+}
+
+function chord(freqs, start, dur, vol=0.2) {
+  freqs.forEach(f => note(f, start, dur, vol, 'sine'));
+}
+
+// Compose a simple Eid nasheed melody (maqam Rast inspired)
+function playNasheed() {
+  if (!audioCtx) return;
+  const now = audioCtx.currentTime;
+  const tempo = 0.55; // beat duration in seconds
+  const T = t => now + t * tempo;
+
+  // Melody – Rast maqam scale: C D E♭ F G A B♭ C (adapted)
+  // Simplified ascending Eid motif
+  const scale = [261.63, 293.66, 311.13, 349.23, 392.00, 440.00, 466.16, 523.25];
+  const mel = [
+    // Phrase 1: ascending motif (takbir feel)
+    [0, scale[0], 0.8],
+    [1, scale[2], 0.6],
+    [1.6, scale[4], 0.8],
+    [2.4, scale[5], 0.6],
+    [3, scale[4], 1.2],
+    // Phrase 2
+    [4.5, scale[3], 0.6],
+    [5.1, scale[2], 0.8],
+    [6, scale[0], 0.6],
+    [6.6, scale[1], 0.8],
+    [7.4, scale[2], 1.5],
+    // Phrase 3: higher
+    [9.5, scale[4], 0.6],
+    [10.1, scale[6], 0.8],
+    [11, scale[7], 0.6],
+    [11.6, scale[6], 0.8],
+    [12.4, scale[4], 1.2],
+    // Phrase 4: resolution
+    [14, scale[3], 0.6],
+    [14.6, scale[2], 0.8],
+    [15.4, scale[1], 0.6],
+    [16, scale[0], 2.0],
+  ];
+
+  mel.forEach(([beat, freq, dur]) => {
+    note(freq, T(beat), dur * tempo, 0.3, 'triangle');
+    // Add harmonics for warmth
+    note(freq * 2, T(beat), dur * tempo * 0.7, 0.08, 'sine');
+  });
+
+  // Bass drone (tonic)
+  for (let i = 0; i < 20; i++) {
+    note(130.81, T(i), tempo * 0.9, 0.12, 'sine');
+  }
+
+  // Chord accompaniment every 2 beats
+  const baseChord = [261.63, 329.63, 392.00];
+  const ivChord = [349.23, 440.00, 523.25];
+  for (let i = 0; i < 10; i++) {
+    chord(i % 4 < 2 ? baseChord : ivChord, T(i*2), tempo * 1.8, 0.08);
+  }
+
+  // Repeat loop
+  const totalDur = 18 * tempo;
+  setTimeout(() => { if (audioPlaying) playNasheed(); }, totalDur * 1000 - 200);
+}
+
+function startAudio() {
+  createRayaAudio();
+  if (audioCtx.state === 'suspended') audioCtx.resume();
+  audioPlaying = true;
+  playNasheed();
+  document.getElementById('audio-btn').textContent = '🔊';
+}
+
+function stopAudio() {
+  audioPlaying = false;
+  audioNodes.forEach(n => { try { n.stop(); } catch(e){} });
+  audioNodes = [];
+  document.getElementById('audio-btn').textContent = '🔇';
+}
+
+// ─── INTRO → SCENE ────────────────────────────────────────────────────────────
+const intro = document.getElementById('intro');
+const scene = document.getElementById('scene');
+const video = document.getElementById('bg-video');
+const audioBtn = document.getElementById('audio-btn');
+const shareBtn = document.getElementById('share-btn');
+
+intro.addEventListener('click', () => {
+  intro.classList.add('hidden');
+  setTimeout(() => {
+    scene.classList.add('visible');
+    setTimeout(() => {
+      video.classList.add('visible');
+      audioBtn.style.display = 'flex';
+      shareBtn.style.display = 'flex';
+      fwActive = true;
+      scheduleFireworks();
+      // Auto start audio
+      startAudio();
+    }, 400);
+  }, 800);
+});
+
+audioBtn.addEventListener('click', () => {
+  if (audioPlaying) stopAudio();
+  else startAudio();
+});
+
+shareBtn.addEventListener('click', () => {
+  if (navigator.share) {
+    navigator.share({
+      title: 'Selamat Hari Raya – INSTAQLIM',
+      text: 'عيد مبارك! Selamat Hari Raya Aidilfitri daripada INSTAQLIM 🌙',
+      url: window.location.href
+    });
+  } else {
+    navigator.clipboard.writeText(window.location.href).then(() => {
+      shareBtn.textContent = '✓ DISALIN';
+      setTimeout(() => shareBtn.innerHTML = '✦ KONGSI', 2000);
+    });
+  }
+});
+
+// Takbir trigger on tap anywhere on scene
+scene.addEventListener('click', e => {
+  burst(e.clientX, e.clientY);
+});
+</script>
 </body>
 </html>
